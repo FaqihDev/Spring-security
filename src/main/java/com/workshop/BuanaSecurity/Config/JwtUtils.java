@@ -16,20 +16,14 @@ import java.util.function.Function;
 public class JwtUtils {
 
 
-    private String jwtSigningKey = "secret";
+    private final String jwtSigningKey = "secret";
 
     public String extractUsername(String token){
         return extractClaim(token, Claims::getSubject);
     }
 
-    public Date extractExpiration(String token ) {
-
+    public Date extractExpiration(String token) {
         return extractClaim(token,Claims::getExpiration);
-    }
-
-    public boolean hasClaim(String token, String claimName){
-        final Claims claims = extractAllClaim(token);
-        return claims.get(claimName) != null;
     }
 
     public <T> T extractClaim(String token, Function<Claims, T> claimsResolver){

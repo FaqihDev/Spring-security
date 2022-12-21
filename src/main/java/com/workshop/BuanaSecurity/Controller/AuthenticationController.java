@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(IApplicationConstant.AUTHENTICATION.AUTH)
+@RequestMapping(IApplicationConstant.ApplicationContext.AUTHENTICATION.AUTH)
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class AuthenticationController {
 
@@ -24,7 +24,7 @@ public class AuthenticationController {
     private final UserDao userDao;
     private final JwtUtils jwtUtils;
 
-    @PostMapping(IApplicationConstant.AUTHENTICATION.AUTHENTICATE)
+    @PostMapping(IApplicationConstant.ENDPOINT.AUTHENTICATE)
     public ResponseEntity<String> authenticate(
             @RequestBody AuthenticationRequest authenticationRequest){
         authenticationManager.authenticate(
@@ -33,7 +33,6 @@ public class AuthenticationController {
       if (user != null ) {
          return ResponseEntity.ok(jwtUtils.generateToken(user));
      }
-
          return ResponseEntity.status(400).body("Some error has occurred");
     }
 }
